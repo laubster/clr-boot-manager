@@ -201,6 +201,9 @@ bool grub2_write_kernel(const Grub2Config *config, const Kernel *kernel)
                                  kernel->meta.release,
                                  kernel->meta.ktype);
 
+        /* (Perhaps) make the boot choice persistent */
+        cbm_writer_append_printf(config->writer, "%ssave_default_entry\n", tab);
+
         /* Load video, compatibility with 10_linux */
         cbm_writer_append_printf(config->writer,
                                  "%sif [ \"x$GRUB_GFXPAYLOAD_LINUX\" = x ]; then\n",
